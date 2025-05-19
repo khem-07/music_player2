@@ -5,44 +5,47 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  /* Soft pastel gradient with gentle colors */
-  background: linear-gradient(-45deg, #b7eaff, #f6d6ff, #c2ffd3, #ffe6e6);
+  /* Dreamy gradient with vibrant, cohesive colors */
+  background: linear-gradient(-45deg, #d4a5ff, #ffcccb, #a3e4d7, #b3cffa);
   background-size: 400% 400%;
-  animation: gradientBG 32s ease-in-out infinite;
-  color: #fff;
+  animation: gradientBG 28s ease-in-out infinite;
+  color: #f5f6fa;
 }
+
 @keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  25% {background-position: 50% 100%;}
-  50% {background-position: 100% 50%;}
-  75% {background-position: 50% 0%;}
-  100% {background-position: 0% 50%;}
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
 }
 
 .music-player {
-  background: rgba(255,255,255,0.13);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 24px;
   padding: 36px 28px 32px 28px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
+  box-shadow: 0 8px 32px rgba(20, 30, 70, 0.15);
   backdrop-filter: blur(18px);
-  border: 1.5px solid rgba(255,255,255,0.14);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
   width: 340px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
+
 .song-info h2 {
   font-family: 'Rancho', cursive;
   font-size: 1.6rem;
-  color: #68bfae;
+  color: #ffd1dc; /* Soft pink for song title */
   margin-bottom: 6px;
   min-height: 28px;
   letter-spacing: 1px;
-  text-shadow: 0 1px 8px #0001;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
 }
+
 .song-info p {
   font-size: 1.1rem;
-  color: #b0b0ff;
+  color: #c3dffa; /* Light blue for artist */
   min-height: 18px;
   margin-bottom: 18px;
   letter-spacing: 0.5px;
@@ -55,8 +58,9 @@ body {
   gap: 18px;
   margin: 20px 0 18px 0;
 }
+
 .control-button {
-  background: linear-gradient(135deg, #9fd8ef 60%, #a6e3c7 100%);
+  background: linear-gradient(135deg, #ff9aa2 60%, #a3e4d7 100%); /* Pink to teal gradient */
   border: none;
   color: #fff;
   font-size: 1.6rem;
@@ -64,7 +68,7 @@ body {
   height: 54px;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(98,0,234,0.08);
+  box-shadow: 0 4px 12px rgba(50, 20, 100, 0.1);
   transition: all 0.2s;
   display: flex;
   align-items: center;
@@ -73,25 +77,27 @@ body {
   position: relative;
   z-index: 2;
 }
+
 .control-button:hover {
-  background: linear-gradient(135deg, #a6e3c7 60%, #9fd8ef 100%);
+  background: linear-gradient(135deg, #a3e4d7 60%, #ff9aa2 100%); /* Reverse gradient on hover */
   transform: scale(1.09);
-  box-shadow: 0 6px 18px rgba(98,0,234,0.13);
+  box-shadow: 0 6px 18px rgba(50, 20, 100, 0.15);
 }
 
 .progress-bar {
   width: 100%;
   height: 7px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   margin-top: 10px;
   position: relative;
   overflow: hidden;
 }
+
 .progress {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, #a6e3c7, #9fd8ef);
+  background: linear-gradient(90deg, #ff9aa2, #b3cffa); /* Pink to blue progress */
   border-radius: 5px;
   transition: width 0.2s linear;
 }
@@ -106,17 +112,19 @@ body {
 .note {
   position: absolute;
   font-size: 2.2rem;
-  color: #fff7;
+  color: rgba(255, 255, 255, 0.5);
   opacity: 0.4;
   animation: floatNotes 12s linear infinite;
   pointer-events: none;
   z-index: 1;
   filter: blur(0.5px);
 }
+
 .note1 { left: 10%; top: 80%; animation-delay: 0s; }
 .note2 { left: 80%; top: 90%; animation-delay: 4s; }
 .note3 { left: 50%; top: 100%; animation-delay: 8s; }
+
 @keyframes floatNotes {
-  0% { transform: translateY(0) scale(1);}
-  100% { transform: translateY(-220px) scale(1.2);}
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-220px) scale(1.2); }
 }
