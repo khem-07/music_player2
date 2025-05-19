@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="music-player">
+        <div class="song-info">
+            <h2 id="song-title">Loading current track...</h2>
+            <p id="artist-name"></p>
+        </div>
+        <audio id="audio" src="https://listen.ramashamedia.com:8330/stream"></audio>
+        <div class="player-controls">
+            <button class="control-button" id="rewind">◀◀</button>
+            <button class="control-button" id="play">▶</button>
+            <button class="control-button" id="stop">◼</button>
+        </div>
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="time-info">
+            <span id="current-time">0:00</span>
+            <span id="duration">0:00</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

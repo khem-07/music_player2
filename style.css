@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e1e2f, #2a2a4a);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+
+.music-player {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.song-info {
+    margin-bottom: 20px;
+}
+
+.song-info h2 {
+    font-size: 20px;
+    color: #1db954;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-height: 24px;
+}
+
+.song-info p {
+    font-size: 16px;
+    color: #b0b0ff;
+    min-height: 20px;
+}
+
+.player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.control-button {
+    background: #6200ea;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-button:hover {
+    background: #1db954;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(98, 0, 234, 0.4);
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    margin-top: 20px;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background: #1db954;
+    border-radius: 5px;
+    transition: width 0.1s linear;
+}
+
+.time-info {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #e0e0ff;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Responsive design */
+@media (max-width: 400px) {
+    .music-player {
+        width: 90%;
+        padding: 20px;
+    }
+    .song-info h2 {
+        font-size: 18px;
+    }
+    .song-info p {
+        font-size: 14px;
+    }
+    .control-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
