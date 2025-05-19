@@ -1,128 +1,117 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-.rancho-regular {
-  font-family: "Rancho", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
-
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #1e1e2f, #2a2a4a);
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #1e1e2f, #2a2a4a, #1db954, #6200ea);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease-in-out infinite;
+  color: #fff;
+}
+@keyframes gradientBG {
+  0%,100% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
 }
 
 .music-player {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    width: 350px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(30,30,47,0.85);
+  border-radius: 24px;
+  padding: 36px 28px 32px 28px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  width: 340px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-
-.song-info {
-    margin-bottom: 20px;
-}
-
 .song-info h2 {
-    font-size: 20px;
-    color: #1db954;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    min-height: 24px;
+  font-family: 'Rancho', cursive;
+  font-size: 1.6rem;
+  color: #1db954;
+  margin-bottom: 6px;
+  min-height: 28px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 8px #0003;
 }
-
 .song-info p {
-    font-size: 16px;
-    color: #b0b0ff;
-    min-height: 20px;
+  font-size: 1.1rem;
+  color: #b0b0ff;
+  min-height: 18px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
 }
 
 .player-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 20px 0 18px 0;
 }
-
 .control-button {
-    background: #6200ea;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: linear-gradient(135deg, #6200ea 60%, #1db954 100%);
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(98,0,234,0.18);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  position: relative;
+  z-index: 2;
 }
-
 .control-button:hover {
-    background: #1db954;
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(98, 0, 234, 0.4);
-}
-
-.control-button:active {
-    transform: scale(0.95);
+  background: linear-gradient(135deg, #1db954 60%, #6200ea 100%);
+  transform: scale(1.09);
+  box-shadow: 0 6px 18px rgba(98,0,234,0.33);
 }
 
 .progress-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-    margin-top: 20px;
+  width: 100%;
+  height: 7px;
+  background: rgba(255,255,255,0.17);
+  border-radius: 5px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
 }
-
 .progress {
-    width: 0;
-    height: 100%;
-    background: #1db954;
-    border-radius: 5px;
-    transition: width 0.1s linear;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #1db954, #6200ea);
+  border-radius: 5px;
+  transition: width 0.2s linear;
 }
 
-.time-info {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #e0e0ff;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* Responsive design */
 @media (max-width: 400px) {
-    .music-player {
-        width: 90%;
-        padding: 20px;
-    }
-    .song-info h2 {
-        font-size: 18px;
-    }
-    .song-info p {
-        font-size: 14px;
-    }
-    .control-button {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-    }
+  .music-player { width: 96%; padding: 18px; }
+  .song-info h2 { font-size: 1.2rem; }
+  .control-button { width: 40px; height: 40px; font-size: 1.1rem; }
+}
+
+/* Decorative floating music notes */
+.note {
+  position: absolute;
+  font-size: 2.2rem;
+  color: #fff7;
+  opacity: 0.6;
+  animation: floatNotes 7s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.note1 { left: 10%; top: 80%; animation-delay: 0s; }
+.note2 { left: 80%; top: 90%; animation-delay: 2s; }
+.note3 { left: 50%; top: 100%; animation-delay: 4s; }
+@keyframes floatNotes {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-220px) scale(1.2);}
 }

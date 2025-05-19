@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music Player</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rancho&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="music-player">
-      <div class="song-info">
-        <h2 id="song-title">Loading current track...</h2>
-        <p id="artist-name"></p>
-      </div>
-      <audio
-        id="audio"
-        src="https://listen.ramashamedia.com:8330/stream"
-      ></audio>
-      <div class="player-controls">
-        <button class="control-button" id="rewind">◀◀</button>
-        <button class="control-button" id="play">▶</button>
-        <button class="control-button" id="stop">◼</button>
-      </div>
-      <div class="progress-bar" id="progress-bar">
-        <div class="progress" id="progress"></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Music Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Poppins:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="music-player">
+    <!-- Decorative notes -->
+    <div class="note note1">🎵</div>
+    <div class="note note2">🎶</div>
+    <div class="note note3">🎵</div>
+    <div class="song-info">
+      <h2 id="song-title">Loading current track...</h2>
+      <p id="artist-name"></p>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <audio id="audio" src="https://listen.ramashamedia.com:8330/stream"></audio>
+    <div class="player-controls">
+      <button class="control-button" id="rewind" title="Rewind 10s">⏪</button>
+      <button class="control-button" id="play" title="Start">▶</button>
+      <button class="control-button" id="stop" title="Stop">⏹</button>
+    </div>
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div style="margin-top:14px;font-size:0.95rem;color:#bbb;">
+      <span id="stream-status">Stopped</span>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
