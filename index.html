@@ -5,21 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Music Player</title>
   <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Poppins:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
+     </head>
 </head>
 <body>
-  <div class="music-player">
-    <!-- Decorative notes -->
+      <!-- Decorative notes -->
     <div class="note note1">🎵</div>
     <div class="note note2">🎶</div>
-    <div class="note note3">🎵</div>
+    <div class="note note4">🎶</div>
+    <div class="note note5">🎵</div>
+    <div class="note note6">🎶</div>
+    <div class="note note8">🎶</div>
+    <div class="note note9">🎵</div>
+    <div class="note note10">🎶</div>
+
+
+  <div class="music-player">
     <div class="song-info">
       <h2 id="song-title">Loading current track...</h2>
       <p id="artist-name"></p>
     </div>
     <audio id="audio" src="https://listen.ramashamedia.com:8330/stream"></audio>
     <div class="player-controls">
-      <button class="control-button" id="rewind" title="Rewind 10s">⏪</button>
+      <button class="control-button" id="rewind" title="Rewind 10s"><i class="fa-solid fa-backward"></i></button>
       <button class="control-button" id="play" title="Start">▶</button>
       <button class="control-button" id="stop" title="Stop">⏹</button>
     </div>
