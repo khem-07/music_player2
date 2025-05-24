@@ -5,72 +5,110 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  /* New vibrant gradient with warm and cool tones */
-     background: linear-gradient(-45deg, #0a0a0a, #000000, #000000, #de0896);
-  background-size: 300% 300%;
-  animation: gradientBG 28s ease-in-out infinite;
-  color: #f5f6fa;
+  background: linear-gradient(135deg, #191724, #283046, #1f2937 70%);
+  color: #f4f1fb;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 100%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 0%; }
-  100% { background-position: 0% 50%; }
+svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  filter: blur(8px);
+  opacity: 0.5;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.out-top {
+  animation: rotate 30s linear infinite;
+  transform-origin: 13px 25px;
+  fill: #6ee7b7; /* Aurora Green */
+}
+
+.in-top {
+  animation: rotate 15s linear infinite;
+  transform-origin: 13px 25px;
+  fill: #a78bfa; /* Aurora Purple */
+}
+
+.out-bottom {
+  animation: rotate 35s linear infinite;
+  transform-origin: 84px 93px;
+  fill: #f472b6; /* Aurora Pink */
+}
+
+.in-bottom {
+  animation: rotate 20s linear infinite;
+  transform-origin: 84px 93px;
+  fill: #fbbf24; /* Gold Highlight */
 }
 
 .music-player {
-  background: rgb(0 0 0 / 20%); /* Soft lavender with transparency */
-  border-radius: 24px;
-  padding: 36px 28px 32px 28px;
-  box-shadow: 0 8px 32px rgb(135 21 251 / 18%); /* Shadow with purple undertone */
-  backdrop-filter: blur(14px); /* Slightly reduced blur for clarity */
-  border: 1.5px solid rgba(204, 153, 255, 0.25); /* Matching lavender border */
-  width: 340px;
+  background: rgba(40, 48, 70, 0.85);
+  border-radius: 32px;
+  padding: 40px 32px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  width: 360px;
   text-align: center;
   position: relative;
-  overflow: hidden;
   z-index: 10;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+}
+
+.music-player:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: 0 20px 64px rgba(0,0,0,0.6), 0 0 32px #a78bfa33;
 }
 
 .song-info h2 {
   font-family: 'Rancho', cursive;
-  font-size: 1.6rem;
-  color: white;
-  margin-bottom: 6px;
-  min-height: 28px;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.8rem;
+  color: #fbbf24;
+  margin-bottom: 8px;
+  min-height: 32px;
+  letter-spacing: 1.2px;
+  text-shadow: 0 2px 12px #191724cc;
 }
 
 .song-info p {
-  font-size: 1.1rem;
-  color: #e6ccff; /* Light purple for artist */
-  min-height: 18px;
-  margin-bottom: 18px;
-  letter-spacing: 0.5px;
+  font-size: 1rem;
+  color: #a78bfa;
+  min-height: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.6px;
+  opacity: 0.92;
 }
 
 .player-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 18px;
-  margin: 20px 0 18px 0;
+  gap: 20px;
+  margin: 24px 0;
 }
 
 .control-button {
-  background: linear-gradient(135deg, #ff9aa2 60%, #a3e4d7 100%);
+  background: linear-gradient(135deg, #6ee7b7 30%, #f472b6 100%);
   border: none;
   color: #fff;
-  font-size: 1.6rem;
-  width: 54px;
-  height: 54px;
+  font-size: 1.7rem;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(50, 20, 100, 0.1);
-  transition: all 0.2s;
+  box-shadow: 0 6px 18px #a78bfa55;
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,161 +118,138 @@ body {
 }
 
 .control-button:hover {
-  background: linear-gradient(135deg, #a3e4d7 60%, #ff9aa2 100%);
-  transform: scale(1.09);
-  box-shadow: 0 6px 18px rgba(50, 20, 100, 0.15);
+  background: linear-gradient(135deg, #f472b6 30%, #6ee7b7 100%);
+  transform: scale(1.13) rotate(5deg);
+  box-shadow: 0 10px 32px #fbbf2440;
 }
 
 .progress-bar {
   width: 100%;
-  height: 7px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-  margin-top: 10px;
+  height: 8px;
+  background: rgba(167, 139, 250, 0.18);
+  border-radius: 8px;
+  margin-top: 12px;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px #19172444;
 }
 
 .progress {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, #ff9aa2, #b3cffa);
-  border-radius: 5px;
-  transition: width 0.2s linear;
+  background: linear-gradient(90deg, #fbbf24, #f472b6, #6ee7b7);
+  border-radius: 8px;
+  transition: width 0.3s;
 }
 
 @media (max-width: 400px) {
-  .music-player { width: 96%; padding: 18px; }
-  .song-info h2 { font-size: 1.2rem; }
-  .control-button { width: 40px; height: 40px; font-size: 1.1rem; }
+  .music-player { 
+    width: 90%; 
+    padding: 24px; 
+  }
+  .song-info h2 { 
+    font-size: 1.4rem; 
+  }
+  .song-info p { 
+    font-size: 0.9rem; 
+  }
+  .control-button { 
+    width: 48px; 
+    height: 48px; 
+    font-size: 1.3rem; 
+  }
 }
 
-/* Decorative floating music notes */
 .note {
   position: absolute;
-  font-size: 2.2rem;
-  color: #a18cd1; /* Soft purple as base */
-  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  font-size: 2.4rem;
+  background: linear-gradient(135deg, #f472b6, #6ee7b7, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity: 0.7;
-  animation: floatNotes 12s linear infinite;
+  opacity: 0.8;
+  animation: floatNotes 10s ease-in-out infinite;
   pointer-events: none;
   z-index: 1;
-  filter: blur(0.5px) drop-shadow(0 2px 6px rgba(160,140,209,0.3));
+  filter: drop-shadow(0 2px 8px #19172466);
 }
 
-.note1 { left: 10%; top: 80%; animation-delay: 0s; font-size: 2.4rem; }
-.note2 { left: 80%; top: 90%; animation-delay: 3s; font-size: 2.1rem; }
-.note3 { left: 50%; top: 100%; animation-delay: 6s; font-size: 2.6rem; }
-.note4 { left: 20%; top: 95%; animation-delay: 1.5s; font-size: 2.3rem; }
-.note5 { left: 70%; top: 85%; animation-delay: 4.5s; font-size: 2.0rem; }
+.note1 { left: 15%; top: 75%; animation-delay: 0s; font-size: 2.6rem; }
+.note2 { left: 85%; top: 85%; animation-delay: 2.5s; font-size: 2.2rem; }
+.note4 { left: 25%; top: 90%; animation-delay: 1.2s; font-size: 2.4rem; }
+.note5 { left: 75%; top: 80%; animation-delay: 3.8s; font-size: 2.1rem; }
 
 @keyframes floatNotes {
-  0% {
-    transform: translateY(0) scale(1) rotate(-10deg);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(-120px) translateX(20px) scale(1.1) rotate(8deg);
-    opacity: 0.6;
-  }
-  80% {
-    transform: translateY(-220px) translateX(-10px) scale(1.2) rotate(15deg);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-260px) translateX(0px) scale(1.25) rotate(18deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) scale(1) rotate(-12deg); opacity: 0.8; }
+  50% { transform: translateY(-150px) translateX(15px) scale(1.15) rotate(10deg); opacity: 0.65; }
+  80% { transform: translateY(-250px) translateX(-5px) scale(1.3) rotate(12deg); opacity: 0.4; }
+  100% { transform: translateY(-300px) translateX(0px) scale(1.4) rotate(20deg); opacity: 0; }
 }
 
 .meter-wrapper {
-      margin-top: 15px;
-    }
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
 
-    .meter-container {
-      display: inline-block;
-      background: -webkit-linear-gradient(left, #008a00 0%, #008a00 25%, #52b152 45%, #f2ea00 60%, #fff200 75%, #ff9d00 85%, #e21d1d 100%); /* Adjusted for visible yellow */
-      margin: 5px auto;
-      width: 400px;
-      height: 23px;
-      position: relative;
-    }
+.meter-container {
+  display: block;
+  background: linear-gradient(to right, #6ee7b7 0%, #a78bfa 50%, #f472b6 100%);
+  width: 280px;
+  height: 12px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #19172444;
+}
 
-    .meter {
-      display: inline-block;
-      position: absolute;
-      right: 0;
-      width: 300px;
-      height: 25px;
-      background: black;
-    }
+.meter {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  background: rgba(31, 41, 55, 0.7);
+  transition: width 0.2s;
+}
 
-    #meter7 {
-      animation: move1 3s infinite;
-    }
+#meter7 { animation: move1 1.8s ease-in-out infinite; }
+#meter10 { animation: move3 2.1s ease-in-out infinite; }
 
-    #meter10 {
-      animation: move3 3.2s infinite;
-    }
+@keyframes move1 {
+  0% { width: 70px; }
+  50% { width: 210px; }
+  100% { width: 70px; }
+}
 
-    @keyframes move1 {
-      0% {
-        width: 100px;
-      }
-      60% {
-        width: 290px;
-      }
-      100% {
-        width: 100px;
-      }
-    }
+@keyframes move3 {
+  0% { width: 80px; }
+  50% { width: 240px; }
+  100% { width: 80px; }
+}
 
-    @keyframes move2 {
-      0% {
-        width: 132px;
-      }
-      50% {
-        width: 216px;
-      }
-      100% {
-        width: 132px;
-      }
-    }
+.links {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  z-index: 10;
+}
 
-    @keyframes move3 {
-      0% {
-        width: 106px;
-      }
-      50% {
-        width: 270px;
-      }
-      100% {
-        width: 106px;
-      }
-    }
+a {
+  text-decoration: none;
+  color: #fbbf24;
+  margin-left: 1.2em;
+  transition: color 0.3s;
+}
 
-    @keyframes move4 {
-      0% {
-        width: 256px;
-      }
-      50% {
-        width: 126px;
-      }
-      100% {
-        width: 256px;
-      }
-    }
+a:hover {
+  color: #f472b6;
+  text-decoration: underline;
+}
 
-    @keyframes move5 {
-      0% {
-        width: 256px;
-      }
-      50% {
-        width: 200px;
-      }
-      100% {
-        width: 256px;
-      }
-    }
+a img.icon {
+  display: inline-block;
+  height: 1em;
+  margin: 0 0 -0.1em 0.3em;
+}

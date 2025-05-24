@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Music Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Poppins:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: #f5f6fa;
+      position: relative;
+      overflow: hidden;
+    }
+
+    svg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .out-top {
+      animation: rotate 20s linear infinite;
+      transform-origin: 13px 25px;
+    }
+    .in-top {
+      animation: rotate 10s linear infinite;
+      transform-origin: 13px 25px;
+    }
+    .out-bottom {
+      animation: rotate 25s linear infinite;
+      transform-origin: 84px 93px;
+    }
+    .in-bottom {
+      animation: rotate 15s linear infinite;
+      transform-origin: 84px 93px;
+    }
+
+    .music-player {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 24px;
+      padding: 36px 28px 32px 28px;
+      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgb(151, 151, 151);
+      width: 340px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .song-info h2 {
+      font-family: 'Rancho', cursive;
+      font-size: 1.6rem;
+      color: white;
+      margin-bottom: 6px;
+      min-height: 28px;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .song-info p {
+      font-size: 1.1rem;
+      color: #e6ccff;
+      min-height: 18px;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin: 20px 0 18px 0;
+    }
+
+    .control-button {
+      background: linear-gradient(135deg, #ff9aa2 60%, #a3e4d7 100%);
+      border: none;
+      color: #ffffff;
+      font-size: 1.6rem;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(50, 20, 100, 0.1);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      position: relative;
+      z-index: 2;
+    }
+
+    .control-button:hover {
+      background: linear-gradient(135deg, #a3e4d7 60%, #ff9aa2 100%);
+      transform: scale(1.09);
+      box-shadow: 0 6px 18px rgba(50, 20, 100, 0.15);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff9aa2, #b3cffa);
+      border-radius: 5px;
+      transition: width 0.2s linear;
+    }
+
+    @media (max-width: 400px) {
+      .music-player { width: 96%; padding: 18px; }
+      .song-info h2 { font-size: 1.2rem; }
+      .control-button { width: 40px; height: 40px; font-size: 1.1rem; }
+    }
+
+    .note {
+      position: absolute;
+      font-size: 2.2rem;
+      color: #a18cd1;
+      background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.7;
+      animation: floatNotes 12s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(0.5px) drop-shadow(0 2px 6px rgba(160,140,209,0.3));
+    }
+
+    .note1 { left: 10%; top: 80%; animation-delay: 0s; font-size: 2.4rem; }
+    .note2 { left: 80%; top: 90%; animation-delay: 3s; font-size: 2.1rem; }
+    .note4 { left: 20%; top: 95%; animation-delay: 1.5s; font-size: 2.3rem; }
+    .note5 { left: 70%; top: 85%; animation-delay: 4.5s; font-size: 2.0rem; }
+
+    @keyframes floatNotes {
+      0% { transform: translateY(0) scale(1) rotate(-10deg); opacity: 0.7; }
+      50% { transform: translateY(-120px) translateX(20px) scale(1.1) rotate(8deg); opacity: 0.6; }
+      80% { transform: translateY(-220px) translateX(-10px) scale(1.2) rotate(15deg); opacity: 0.5; }
+      100% { transform: translateY(-260px) translateX(0px) scale(1.25) rotate(18deg); opacity: 0; }
+    }
+
+    .meter-wrapper {
+      margin-top: 15px;
+    }
+
+    .meter-container {
+      display: inline-block;
+      background: linear-gradient(to right, #008a00 0%, #008a00 25%, #52b152 45%, #f2ea00 60%, #fff200 75%, #ff9d00 85%, #e21d1d 100%);
+      margin: 5px auto;
+      width: 400px;
+      height: 23px;
+      position: relative;
+    }
+
+    .meter {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      width: 300px;
+      height: 25px;
+      background: black;
+    }
+
+    #meter7 { animation: move1 2s infinite; }
+    #meter10 { animation: move3 2.2s infinite; }
+
+    @keyframes move1 {
+      0% { width: 100px; }
+      60% { width: 290px; }
+      100% { width: 100px; }
+    }
+
+    @keyframes move3 {
+      0% { width: 106px; }
+      50% { width: 270px; }
+      100% { width: 106px; }
+    }
+
+    .links {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 18px;
+      font-family: sans-serif;
+      z-index: 10;
+    }
+
+    a {
+      text-decoration: none;
+      color: #f5f6fa;
+      margin-left: 1em;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a img.icon {
+      display: inline-block;
+      height: 1em;
+      margin: 0 0 -0.1em 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80">
+    <path fill="#ff9aa2" class="out-top" d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z"/>
+    <path fill="#b3cffa" class="in-top" d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z"/>
+    <path fill="#a3e4d7" class="out-bottom" d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z"/>
+    <path fill="#a18cd1" class="in-bottom" d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z"/>
+  </svg>
+  <div class="note note1">🎵</div>
+  <div class="note note2">🎶</div>
+  <div class="note note4">🎶</div>
+  <div class="note note5">🎵</div>
+  <div class="music-player">
+    <div class="song-info">
+      <h2 id="song-title">Loading current track...</h2>
+      <p id="artist-name"></p>
+    </div>
+    <audio id="audio" src="https://listen.ramashamedia.com:8330/stream"></audio>
+    <div class="player-controls">
+      <button class="control-button" id="rewind" title="Rewind 10s"><i class="fa-solid fa-backward"></i></button>
+      <button class="control-button" id="play" title="Start"><i class="fa-solid fa-play"></i></button>
+      <button class="control-button" id="stop" title="Stop"><i class="fa-solid fa-square"></i></button>
+    </div>
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div style="margin-top:14px;font-size:0.95rem;color:#bbb;">
+      <span id="stream-status">Stopped</span>
+    </div>
+    <div class="meter-wrapper"> 
+      <div class="meter-container">
+        <div class="meter" id="meter7"></div>
+      </div>
+      <div class="meter-container">
+        <div class="meter" id="meter10"></div>
+      </div>
+    </div>
+  </div>
+  <div class="links">
+    <a href="https://dev.to/uuuuuulala/making-background-blob-animation-in-just-15kb-step-by-step-guide-2482" target="_blank">tutorial<img class="icon" src="https://ksenia-k.com/img/icons/link.svg"></a>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

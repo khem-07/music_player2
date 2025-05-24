@@ -15,7 +15,7 @@ playBtn.addEventListener('click', () => {
     audio.load();
     audio.play().catch(err => console.error('Playback error:', err));
     isPlaying = true;
-    playBtn.innerHTML = '⏸';
+    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
     streamStatus.textContent = 'Playing';
   }
 });
@@ -25,7 +25,7 @@ stopBtn.addEventListener('click', () => {
   audio.currentTime = 0;
   audio.src = ""; // Unload stream for true stop
   isPlaying = false;
-  playBtn.innerHTML = '▶';
+  playBtn.innerHTML = '<i class="fa-solid fa-play">';
   progress.style.width = '0%';
   streamStatus.textContent = 'Stopped';
 });
