@@ -39,16 +39,6 @@ rewindBtn.addEventListener('click', () => {
   }
 });
 
-// Progress bar animation (simulate for stream)
-setInterval(() => {
-  if (!audio.paused && !audio.ended) {
-    // Animate progress bar (looping)
-    let width = parseFloat(progress.style.width) || 0;
-    width = (width + 1.5) % 100;
-    progress.style.width = width + '%';
-  }
-}, 200);
-
 // --- Fetch & Display Song Title ---
 async function updateSongTitle() {
   try {
