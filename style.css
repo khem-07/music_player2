@@ -46,7 +46,7 @@ svg {
 }
 .note {
   position: absolute;
-  font-size: 2.4rem;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
   background: linear-gradient(135deg, #f472b6, #6ee7b7, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -56,10 +56,10 @@ svg {
   z-index: 1;
   filter: drop-shadow(0 2px 8px #19172466);
 }
-.note1 { left: 15%; top: 75%; animation-delay: 0s; font-size: 2.6rem; }
-.note2 { left: 85%; top: 85%; animation-delay: 2.5s; font-size: 2.2rem; }
-.note4 { left: 25%; top: 90%; animation-delay: 1.2s; font-size: 2.4rem; }
-.note5 { left: 75%; top: 80%; animation-delay: 3.8s; font-size: 2.1rem; }
+.note1 { left: clamp(10%, 15vw, 15%); top: clamp(70%, 75vw, 75%); animation-delay: 0s; font-size: clamp(2rem, 4.5vw, 2.4rem); }
+.note2 { left: clamp(80%, 85vw, 85%); top: clamp(80%, 85vw, 85%); animation-delay: 2.5s; font-size: clamp(1.8rem, 4vw, 2rem); }
+.note4 { left: clamp(20%, 25vw, 25%); top: clamp(85%, 90vw, 90%); animation-delay: 1.2s; font-size: clamp(1.9rem, 4.2vw, 2.2rem); }
+.note5 { left: clamp(70%, 75vw, 75%); top: clamp(75%, 80vw, 80%); animation-delay: 3.8s; font-size: clamp(1.7rem, 3.8vw, 1.9rem); }
 @keyframes floatNotes {
   0% { transform: translateY(0) scale(1) rotate(-12deg); opacity: 0.8; }
   50% { transform: translateY(-150px) translateX(15px) scale(1.15) rotate(10deg); opacity: 0.65; }
@@ -69,11 +69,11 @@ svg {
 .music-player {
   background: rgba(40, 48, 70, 0.85);
   border-radius: 32px;
-  padding: 32px 24px;
+  padding: clamp(16px, 4vw, 24px);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(24px);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
-  width: 420px;
+  width: clamp(300px, 85vw, 400px);
   max-width: 90vw;
   text-align: center;
   position: relative;
@@ -87,7 +87,7 @@ svg {
 }
 .song-info h2 {
   font-family: 'Rancho', cursive;
-  font-size: 1.7rem;
+  font-size: clamp(1.4rem, 3.5vw, 1.6rem);
   color: #a78bfa;
   margin: 0 0 12px;
   min-height: 34px;
@@ -97,35 +97,21 @@ svg {
   white-space: nowrap;
   position: relative;
 }
-
 .song-info h2 span {
   display: inline-block;
   white-space: nowrap;
-  padding-left: 100%; /* Start from center */
+  padding-left: 100%;
   animation: scrollText 12s linear infinite;
 }
-
 @keyframes scrollText {
-  0% {
-    transform: translateX(0);
-  }
-  10% {
-    transform: translateX(0); /* Pause in center */
-  }
-  30% {
-    transform: translateX(-50%); /* Slide halfway */
-  }
-  31% {
-    transform: translateX(100%); /* Jump to right */
-  }
-  100% {
-    transform: translateX(-100%); /* Full scroll left */
-  }
+  0% { transform: translateX(0); }
+  10% { transform: translateX(0); }
+  30% { transform: translateX(-50%); }
+  31% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
-
-
 .song-info p {
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
   color: #fbbf24;
   margin: 0 0 16px;
   min-height: 24px;
@@ -134,28 +120,27 @@ svg {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* animation: scroll-right 12s linear infinite; */
 }
 @keyframes scroll-right {
   0% { text-indent: 100%; }
   100% { text-indent: 0; }
 }
 .song-info {
-  margin-bottom: calc(60px * 0.5 + 80px); /* Scales with visualizer height + buffer */
+  margin-bottom: clamp(60px, 15vw, 80px);
 }
 .visualizer-row {
   width: 100%;
   height: 60px;
-  margin: 32px auto 16px;
+  margin: clamp(16px, 3vw, 24px) auto clamp(8px, 2vw, 12px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 4px;
+  gap: clamp(2px, 0.5vw, 3px);
   pointer-events: none;
   user-select: none;
 }
 .bar {
-  width: 8px;
+  width: clamp(5px, 1vw, 7px);
   background: linear-gradient(180deg, #e66c35, #d04345, #85a752, #067dcc);
   border-radius: 4px;
   opacity: 0.92;
@@ -165,16 +150,16 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin: 20px 0;
+  gap: clamp(12px, 2vw, 14px);
+  margin: clamp(16px, 3vw, 20px) 0;
 }
 .control-button {
   background: linear-gradient(135deg, #6ee7b7 30%, #f472b6 100%);
   border: none;
   color: #fff;
-  font-size: 1.6rem;
-  width: 56px;
-  height: 56px;
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+  width: clamp(44px, 10vw, 52px);
+  height: clamp(44px, 10vw, 52px);
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 6px 18px #a78bfa55;
@@ -192,53 +177,105 @@ svg {
   box-shadow: 0 10px 32px #fbbf2440;
 }
 .stream-status {
-  margin-top: 12px;
-  font-size: 0.95rem;
+  margin-top: clamp(8px, 2vw, 10px);
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   color: #bbb;
 }
 #offline {
   color: #fa225b;
-  font-size: 1.1rem;
-  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  margin-top: clamp(6px, 1.5vw, 8px);
   display: none;
+}
+@media (max-width: 768px) {
+  .music-player {
+    padding: clamp(14px, 3.5vw, 20px);
+    width: clamp(280px, 88vw, 360px);
+  }
+  .song-info {
+    margin-bottom: clamp(75px, 12vw, 64px);
+  }
+  .song-info h2 {
+    font-size: clamp(1.3rem, 3.2vw, 1.5rem);
+    min-height: 30px;
+  }
+  .song-info p {
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    min-height: 22px;
+    margin-bottom: 12px;
+  }
+  .visualizer-row {
+    height: 48px;
+    margin: clamp(16px, 3vw, 20px) auto clamp(8px, 2vw, 10px);
+    gap: clamp(2px, 0.5vw, 3px);
+  }
+  .bar {
+    width: clamp(4px, 0.8vw, 6px);
+  }
+  .control-button {
+    width: clamp(40px, 9vw, 48px);
+    height: clamp(40px, 9vw, 48px);
+    font-size: clamp(1.2rem, 2.8vw, 1.4rem);
+  }
+  .player-controls {
+    gap: clamp(10px, 2vw, 12px);
+    margin: clamp(14px, 2.5vw, 16px) 0;
+  }
+  .stream-status {
+    margin-top: 8px;
+    font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  }
+  .note {
+    font-size: clamp(1.6rem, 3.5vw, 1.8rem);
+  }
+  .note1 { font-size: clamp(1.8rem, 4vw, 2rem); }
+  .note2 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
+  .note4 { font-size: clamp(1.7rem, 3.8vw, 1.9rem); }
+  .note5 { font-size: clamp(1.5rem, 3.3vw, 1.7rem); }
 }
 @media (max-width: 500px) {
   .music-player {
-    padding: 20px 16px;
-    width: 90vw;
+    padding: clamp(12px, 3vw, 16px);
+    width: clamp(260px, 90vw, 320px);
   }
   .song-info {
-    margin-bottom: calc(40px * 0.5 + 8px); /* Scales with mobile visualizer height + buffer */
+    margin-bottom: clamp(100px, 10vw, 48px);
   }
   .song-info h2 {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     min-height: 28px;
   }
   .song-info p {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     min-height: 20px;
     margin-bottom: 12px;
   }
   .visualizer-row {
     height: 40px;
-    margin: 24px auto 12px;
-    gap: 3px;
+    margin: clamp(12px, 2.5vw, 16px) auto clamp(6px, 1.5vw, 8px);
+    gap: clamp(1.5px, 0.4vw, 2.5px);
+  }
+  .bar {
+    width: clamp(3px, 0.7vw, 5px);
   }
   .control-button {
-    width: 48px;
-    height: 48px;
-    font-size: 1.3rem;
+    width: clamp(36px, 8vw, 44px);
+    height: clamp(36px, 8vw, 44px);
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   }
   .player-controls {
-    gap: 12px;
-    margin: 16px 0;
+    gap: clamp(8px, 1.8vw, 10px);
+    margin: clamp(12px, 2vw, 14px) 0;
   }
   .stream-status {
-    margin-top: 8px;
-    font-size: 0.85rem;
-  }
-  #offline {
-    font-size: 1rem;
     margin-top: 6px;
+    font-size: clamp(0.7rem, 1.7vw, 0.8rem);
   }
+  .note {
+    font-size: clamp(1.4rem, 3vw, 1.6rem);
+  }
+  .note1 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
+  .note2 { font-size: clamp(1.4rem, 3vw, 1.6rem); }
+  .note4 { font-size: clamp(1.5rem, 3.2vw, 1.7rem); }
+  .note5 { font-size: clamp(1.3rem, 2.8vw, 1.5rem); }
 }
