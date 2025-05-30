@@ -199,28 +199,42 @@ for (let i = 0; i < barCount; i++) {
 // --- Audio Context Variables ---
 let ctx, analyser, source, freqData;
 let isPlaying = false;
-let isStopped = true; // Track stopped state
+let isStopped = true;
 
 // --- Safari detection ---
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 function setupVisualizer() {
-  if (!window.AudioContext && !window.webkitAudioContext) return;
+  if (!window.AudioContext && !window.webkitAudioContext) {
+    console.warn('Web Audio API not supported in this browser');
+    return;
+  }
 
-  // Only create AudioContext and MediaElementSource once
+  // Create AudioContext only if it doesn't exist or is closed
   if (!ctx || ctx.state === 'closed') {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     analyser = ctx.createAnalyser();
-    source = ctx.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(ctx.destination);
     analyser.fftSize = 64;
     freqData = new Uint8Array(analyser.frequencyBinCount);
   }
 
+  // Create MediaElementSource only if not already connected
+  if (!source) {
+    try {
+      source = ctx.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(ctx.destination);
+    } catch (e) {
+      console.warn('Failed to create MediaElementSource:', e.message);
+    }
+  }
+
   function draw() {
     requestAnimationFrame(draw);
-    if (!isPlaying) return;
+    if (!isPlaying || ctx.state !== 'running') {
+      bars.forEach(bar => bar.style.height = '12px');
+      return;
+    }
     analyser.getByteFrequencyData(freqData);
     for (let i = 0; i < barCount; i++) {
       const height = Math.max(12, freqData[i] / 2.2);
@@ -248,13 +262,14 @@ playBtn.addEventListener('click', async () => {
     bars.forEach(bar => bar.style.height = '12px');
   } else {
     try {
-      // --- SAFARI FIX: Resume AudioContext if suspended ---
+      // Resume AudioContext if suspended (critical for Safari)
       if (ctx && ctx.state === 'suspended') {
         await ctx.resume();
+        console.log('AudioContext resumed, state:', ctx.state);
       }
 
-      // Only setup visualizer/context/source once
-      if (!ctx || ctx.state === 'closed') {
+      // Setup visualizer if not already set up
+      if (!ctx || ctx.state === 'closed' || !source) {
         setupVisualizer();
       }
 
