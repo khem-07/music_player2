@@ -201,33 +201,37 @@ let ctx, analyser, source, freqData;
 let isPlaying = false;
 let isStopped = true;
 
-// --- Safari detection ---
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// --- Web Audio API Support Check ---
+function isWebAudioSupported() {
+  return !!(window.AudioContext || window.webkitAudioContext);
+}
 
+// --- Visualizer Setup ---
 function setupVisualizer() {
-  if (!window.AudioContext && !window.webkitAudioContext) {
-    console.warn('Web Audio API not supported in this browser');
+  if (!isWebAudioSupported()) {
+    visualizer.style.display = 'none';
+    offlineDiv.style.display = 'block';
+    streamStatus.textContent = "Web Audio API not supported in this browser.";
     return;
   }
 
-  // Create AudioContext only if it doesn't exist or is closed
-  if (!ctx || ctx.state === 'closed') {
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = ctx.createAnalyser();
-    analyser.fftSize = 64;
-    freqData = new Uint8Array(analyser.frequencyBinCount);
+  // Clean up previous context and source if needed
+  if (ctx && ctx.state !== 'closed') {
+    ctx.close();
   }
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = ctx.createAnalyser();
+  analyser.fftSize = 64;
+  freqData = new Uint8Array(analyser.frequencyBinCount);
 
-  // Create MediaElementSource only if not already connected
-  if (!source) {
-    try {
-      source = ctx.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(ctx.destination);
-    } catch (e) {
-      console.warn('Failed to create MediaElementSource:', e.message);
-    }
+  // Only create one MediaElementSource per context (Safari limitation)
+  if (source) {
+    try { source.disconnect(); } catch (e) {}
+    source = null;
   }
+  source = ctx.createMediaElementSource(audio);
+  source.connect(analyser);
+  analyser.connect(ctx.destination);
 
   function draw() {
     requestAnimationFrame(draw);
@@ -253,24 +257,28 @@ audio.preload = "auto";
 audio.load();
 
 playBtn.addEventListener('click', async () => {
+  if (!isWebAudioSupported()) {
+    visualizer.style.display = 'none';
+    offlineDiv.style.display = 'block';
+    streamStatus.textContent = "Web Audio API not supported in this browser.";
+    return;
+  }
+
   if (isPlaying) {
     audio.pause();
-    audio.src = ''; // Clear stream
+    audio.src = '';
     isPlaying = false;
     playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
     streamStatus.textContent = 'Stopped';
     bars.forEach(bar => bar.style.height = '12px');
   } else {
     try {
-      // Resume AudioContext if suspended (critical for Safari)
-      if (ctx && ctx.state === 'suspended') {
-        await ctx.resume();
-        console.log('AudioContext resumed, state:', ctx.state);
-      }
-
-      // Setup visualizer if not already set up
-      if (!ctx || ctx.state === 'closed' || !source) {
+      // Resume or create AudioContext on user gesture (Safari/iOS requirement)
+      if (!ctx || ctx.state === 'closed') {
         setupVisualizer();
+      }
+      if (ctx.state === 'suspended') {
+        await ctx.resume();
       }
 
       // Reassign stream to force live reconnect
@@ -295,10 +303,8 @@ stopBtn.addEventListener('click', () => {
   audio.pause();
   try {
     audio.currentTime = 0;
-  } catch (e) {
-    // For live streams, may not reset
-  }
-  audio.src = ''; // Clear stream on stop
+  } catch (e) {}
+  audio.src = '';
   isPlaying = false;
   isStopped = true;
   playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
@@ -313,9 +319,7 @@ rewindBtn.addEventListener('click', () => {
     } else {
       audio.currentTime = 0;
     }
-  } catch (e) {
-    // For live streams, may not work
-  }
+  } catch (e) {}
 });
 
 // --- Song Info Fetch ---
