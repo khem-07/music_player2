@@ -175,6 +175,7 @@
 // setInterval(updateSongInfo, 10000);
 
 // --- Elements ---
+// --- Elements ---
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('play');
 const stopBtn = document.getElementById('stop');
@@ -197,7 +198,7 @@ for (let i = 0; i < barCount; i++) {
 }
 
 // --- Audio Context Variables ---
-let ctx, analyser, source, freqData;
+let ctx = null, analyser = null, source = null, freqData = null;
 let isPlaying = false;
 let isStopped = true;
 
@@ -206,32 +207,36 @@ function isWebAudioSupported() {
   return !!(window.AudioContext || window.webkitAudioContext);
 }
 
-// --- Visualizer Setup ---
+// --- Setup Visualizer ---
 function setupVisualizer() {
   if (!isWebAudioSupported()) {
     visualizer.style.display = 'none';
     offlineDiv.style.display = 'block';
     streamStatus.textContent = "Web Audio API not supported in this browser.";
-    return;
+    return false;
   }
 
-  // Clean up previous context and source if needed
-  if (ctx && ctx.state !== 'closed') {
-    ctx.close();
+  // Only create the context/analyser/source once per page
+  if (!ctx || ctx.state === 'closed') {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 64;
+    freqData = new Uint8Array(analyser.frequencyBinCount);
+    source = null; // Reset source for new context
   }
-  ctx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = ctx.createAnalyser();
-  analyser.fftSize = 64;
-  freqData = new Uint8Array(analyser.frequencyBinCount);
 
-  // Only create one MediaElementSource per context (Safari limitation)
-  if (source) {
-    try { source.disconnect(); } catch (e) {}
-    source = null;
+  // Only create MediaElementSource once per context
+  if (!source) {
+    try {
+      source = ctx.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(ctx.destination);
+    } catch (e) {
+      // Safari throws if you try to create more than one source for the same audio element/context
+      console.warn('Failed to create MediaElementSource:', e.message);
+      return false;
+    }
   }
-  source = ctx.createMediaElementSource(audio);
-  source.connect(analyser);
-  analyser.connect(ctx.destination);
 
   function draw() {
     requestAnimationFrame(draw);
@@ -241,11 +246,11 @@ function setupVisualizer() {
     }
     analyser.getByteFrequencyData(freqData);
     for (let i = 0; i < barCount; i++) {
-      const height = Math.max(12, freqData[i] / 2.2);
-      bars[i].style.height = `${height}px`;
+      bars[i].style.height = `${Math.max(12, freqData[i] / 2.2)}px`;
     }
   }
   draw();
+  return true;
 }
 
 // --- Playback Logic ---
@@ -266,19 +271,20 @@ playBtn.addEventListener('click', async () => {
 
   if (isPlaying) {
     audio.pause();
-    audio.src = '';
+    audio.src = ''; // Clear stream
     isPlaying = false;
     playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
     streamStatus.textContent = 'Stopped';
     bars.forEach(bar => bar.style.height = '12px');
   } else {
     try {
-      // Resume or create AudioContext on user gesture (Safari/iOS requirement)
-      if (!ctx || ctx.state === 'closed') {
-        setupVisualizer();
-      }
-      if (ctx.state === 'suspended') {
+      // Resume AudioContext on user gesture (Safari/iOS requirement)
+      if (ctx && ctx.state === 'suspended') {
         await ctx.resume();
+      }
+      // Setup visualizer if not already set up
+      if (!ctx || ctx.state === 'closed' || !source) {
+        if (!setupVisualizer()) return;
       }
 
       // Reassign stream to force live reconnect
@@ -303,8 +309,10 @@ stopBtn.addEventListener('click', () => {
   audio.pause();
   try {
     audio.currentTime = 0;
-  } catch (e) {}
-  audio.src = '';
+  } catch (e) {
+    // For live streams, may not reset
+  }
+  audio.src = ''; // Clear stream on stop
   isPlaying = false;
   isStopped = true;
   playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
@@ -319,7 +327,9 @@ rewindBtn.addEventListener('click', () => {
     } else {
       audio.currentTime = 0;
     }
-  } catch (e) {}
+  } catch (e) {
+    // For live streams, may not work
+  }
 });
 
 // --- Song Info Fetch ---
@@ -374,4 +384,5 @@ audio.addEventListener('error', () => {
 // --- Initialization ---
 updateSongInfo();
 setInterval(updateSongInfo, 10000);
+
 
