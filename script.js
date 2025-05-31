@@ -206,7 +206,7 @@ if (!isSafari) {
   const imageContainer = document.createElement('div');
   imageContainer.id = 'image-container';
   imageContainer.style.width = '100%';
-  imageContainer.style.height = '100px';
+  imageContainer.style.height = '100%';
   imageContainer.style.overflow = 'hidden';
   visualizer.parentNode.insertBefore(imageContainer, visualizer);
 }
@@ -245,22 +245,30 @@ function setupVisualizer() {
 }
 
 // --- Random Image Fetch for Safari ---
-async function displayRandomImage() {
+function displayRandomImage() {
   if (!isSafari) return;
   const imageContainer = document.getElementById('image-container');
   try {
-    const response = await fetch('https://api.unsplash.com/photos/random?client_id=6vD5z1b0J6tG9Z9g0X7Y5Z8J2b7Y5Z8J2b7Y5Z8J2b7Y5Z8');
-    const data = await response.json();
     const img = document.createElement('img');
-    img.src = data.urls.small;
-    img.alt = data.alt_description || 'Random image';
+    // Use Picsum Photos API with cache-busting parameter
+    img.src = `https://picsum.photos/200/100?random=${Date.now()}`;
+    img.alt = 'Random image';
     img.style.width = '100%';
     img.style.height = '100%';
     img.style.objectFit = 'cover';
+    // Fallback if image fails to load
+    img.onerror = () => {
+      console.warn('Image failed to load, trying fallback');
+      img.src = `https://picsum.photos/200/100?random=${Date.now() + 1}`;
+      img.onerror = () => {
+        console.error('Fallback image failed to load');
+        imageContainer.innerHTML = '<p>Unable to load image</p>';
+      };
+    };
     imageContainer.innerHTML = ''; // Clear previous image
     imageContainer.appendChild(img);
   } catch (e) {
-    console.warn('Failed to fetch image:', e.message);
+    console.error('Error displaying image:', e.message);
     imageContainer.innerHTML = '<p>Unable to load image</p>';
   }
 }

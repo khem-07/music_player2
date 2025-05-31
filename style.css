@@ -280,13 +280,17 @@ svg {
   .note5 { font-size: clamp(1.3rem, 2.8vw, 1.5rem); }
 }
 
-#image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f0f0f0;
+/* Safari-only hack */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    #image-container img {
+      max-height: 300% !important; /* or any value you want */
+      height: auto !important;
+      max-width: 80%;
+    }
+    .song-info {
+      margin-bottom: 10px !important; /* or any value you want */
+    }
+  }
 }
-#image-container img {
-  max-width: 100%;
-  max-height: 100%;
-}
+
