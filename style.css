@@ -168,7 +168,7 @@ svg {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 6px 18px #a78bfa55;
-    transition: all 0.3s cubic-bezier(.4,2,.6,1);
+    transition: all 0.3s; /* Changed from cubic-bezier(.4,2,.6,1) */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,7 +178,7 @@ svg {
 }
 .control-button:hover {
     background: linear-gradient(135deg, #f472b6 30%, #6ee7b7 100%);
-    transform: scale(1.13) rotate(5deg);
+    transform: scale(1.13); /* Removed rotate(5deg) */
     box-shadow: 0 10px 32px #fbbf2440;
 }
 .stream-status {

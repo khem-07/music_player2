@@ -1,7 +1,7 @@
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('play');
 const stopBtn = document.getElementById('stop');
-const rewindBtn = document.getElementById('rewind');
+// const rewindBtn = document.getElementById('rewind'); // Rewind button removed from here
 const songTitleElement = document.getElementById('song-title');
 const artistNameElement = document.getElementById('artist-name');
 const streamStatus = document.getElementById('stream-status');
@@ -173,17 +173,18 @@ stopBtn.addEventListener('click', () => {
     }
 });
 
-rewindBtn.addEventListener('click', () => {
-    try {
-        if (audio.currentTime > 10) {
-            audio.currentTime -= 10;
-        } else {
-            audio.currentTime = 0;
-        }
-    } catch (e) {
-        // For live streams, may not work
-    }
-});
+// Rewind button event listener removed
+// rewindBtn.addEventListener('click', () => {
+//     try {
+//         if (audio.currentTime > 10) {
+//             audio.currentTime -= 10;
+//         } else {
+//             audio.currentTime = 0;
+//         }
+//     } catch (e) {
+//         // For live streams, may not work
+//     }
+// });
 
 // --- Song Info Fetch ---
 async function updateSongInfo() {
