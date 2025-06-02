@@ -1,296 +1,311 @@
 body {
-  min-height: 100vh;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #191724, #283046, #1f2937 70%);
-  color: #f4f1fb;
-  position: relative;
-  overflow: hidden;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #191724, #283046, #1f2937 70%);
+    color: #f4f1fb;
+    position: relative;
+    overflow: hidden;
+    /* Reverted: Removed padding-top from body to keep overall player top margin unchanged */
+    box-sizing: border-box;
 }
 svg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
-  filter: blur(8px);
-  opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    filter: blur(8px);
+    opacity: 0.5;
 }
 @keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 .out-top {
-  animation: rotate 30s linear infinite;
-  transform-origin: 13px 25px;
-  fill: #6ee7b7;
+    animation: rotate 30s linear infinite;
+    transform-origin: 13px 25px;
+    fill: #6ee7b7;
 }
 .in-top {
-  animation: rotate 15s linear infinite;
-  transform-origin: 13px 25px;
-  fill: #a78bfa;
+    animation: rotate 15s linear infinite;
+    transform-origin: 13px 25px;
+    fill: #a78bfa;
 }
 .out-bottom {
-  animation: rotate 35s linear infinite;
-  transform-origin: 84px 93px;
-  fill: #f472b6;
+    animation: rotate 35s linear infinite;
+    transform-origin: 84px 93px;
+    fill: #f472b6;
 }
 .in-bottom {
-  animation: rotate 20s linear infinite;
-  transform-origin: 84px 93px;
-  fill: #fbbf24;
+    animation: rotate 20s linear infinite;
+    transform-origin: 84px 93px;
+    fill: #fbbf24;
 }
 .note {
-  position: absolute;
-  font-size: clamp(1.8rem, 4vw, 2.2rem);
-  background: linear-gradient(135deg, #f472b6, #6ee7b7, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0.8;
-  animation: floatNotes 10s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-  filter: drop-shadow(0 2px 8px #19172466);
+    position: absolute;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    background: linear-gradient(135deg, #f472b6, #6ee7b7, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.8;
+    animation: floatNotes 10s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+    filter: drop-shadow(0 2px 8px #19172466);
 }
 .note1 { left: clamp(10%, 15vw, 15%); top: clamp(70%, 75vw, 75%); animation-delay: 0s; font-size: clamp(2rem, 4.5vw, 2.4rem); }
 .note2 { left: clamp(80%, 85vw, 85%); top: clamp(80%, 85vw, 85%); animation-delay: 2.5s; font-size: clamp(1.8rem, 4vw, 2rem); }
 .note4 { left: clamp(20%, 25vw, 25%); top: clamp(85%, 90vw, 90%); animation-delay: 1.2s; font-size: clamp(1.9rem, 4.2vw, 2.2rem); }
 .note5 { left: clamp(70%, 75vw, 75%); top: clamp(75%, 80vw, 80%); animation-delay: 3.8s; font-size: clamp(1.7rem, 3.8vw, 1.9rem); }
 @keyframes floatNotes {
-  0% { transform: translateY(0) scale(1) rotate(-12deg); opacity: 0.8; }
-  50% { transform: translateY(-150px) translateX(15px) scale(1.15) rotate(10deg); opacity: 0.65; }
-  80% { transform: translateY(-250px) translateX(-5px) scale(1.3) rotate(12deg); opacity: 0.4; }
-  100% { transform: translateY(-300px) translateX(0px) scale(1.4) rotate(20deg); opacity: 0; }
+    0% { transform: translateY(0) scale(1) rotate(-12deg); opacity: 0.8; }
+    50% { transform: translateY(-150px) translateX(15px) scale(1.15) rotate(10deg); opacity: 0.65; }
+    80% { transform: translateY(-250px) translateX(-5px) scale(1.3) rotate(12deg); opacity: 0.4; }
+    100% { transform: translateY(-300px) translateX(0px) scale(1.4) rotate(20deg); opacity: 0; }
 }
 .music-player {
-  background: rgba(40, 48, 70, 0.85);
-  border-radius: 32px;
-  padding: clamp(16px, 4vw, 24px);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(24px);
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  width: clamp(300px, 85vw, 400px);
-  max-width: 90vw;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+    background: rgba(40, 48, 70, 0.85);
+    border-radius: 32px;
+    padding: clamp(16px, 4vw, 24px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    /* Decreased width */
+    width: clamp(280px, 80vw, 360px); /* Adjusted min, vw, and max width */
+    max-width: 90vw;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
 }
 .music-player:hover {
-  transform: translateY(-7px) scale(1.02);
-  box-shadow: 0 20px 64px rgba(0,0,0,0.6), 0 0 32px #a78bfa33;
+    transform: translateY(-7px) scale(1.02);
+    box-shadow: 0 20px 64px rgba(0,0,0,0.6), 0 0 32px #a78bfa33;
 }
 .song-info h2 {
-  font-family: 'Rancho', cursive;
-  font-size: clamp(1.4rem, 3.5vw, 1.6rem);
-  color: #a78bfa;
-  margin: 0 0 12px;
-  min-height: 34px;
-  letter-spacing: 1.2px;
-  text-shadow: 0 2px 12px #191724cc;
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
+    font-family: 'Rancho', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 1.6rem);
+    color: #a78bfa;
+    margin: 0 0 12px;
+    min-height: 34px;
+    letter-spacing: 1.2px;
+    text-shadow: 0 2px 12px #191724cc;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
 }
 .song-info h2 span {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%;
-  animation: scrollText 12s linear infinite;
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scrollText 12s linear infinite;
 }
 @keyframes scrollText {
-  0% { transform: translateX(0); }
-  10% { transform: translateX(0); }
-  30% { transform: translateX(-50%); }
-  31% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+    0% { transform: translateX(0); }
+    10% { transform: translateX(0); }
+    30% { transform: translateX(-50%); }
+    31% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
 .song-info p {
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  color: #fbbf24;
-  margin: 0 0 16px;
-  min-height: 24px;
-  letter-spacing: 0.6px;
-  opacity: 0.92;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #fbbf24;
+    margin: 0 0 16px;
+    min-height: 24px;
+    letter-spacing: 0.6px;
+    opacity: 0.92;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 @keyframes scroll-right {
-  0% { text-indent: 100%; }
-  100% { text-indent: 0; }
+    0% { text-indent: 100%; }
+    100% { text-indent: 0; }
 }
 .song-info {
-  margin-bottom: clamp(60px, 15vw, 80px);
+    /* Decreased margin-bottom to reduce gap above visualizer/image */
+    margin-bottom: clamp(40px, 10vw, 60px); /* Adjusted from 60px, 15vw, 80px */
 }
 .visualizer-row {
-  width: 100%;
-  height: 60px;
-  margin: clamp(16px, 3vw, 24px) auto clamp(8px, 2vw, 12px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(2px, 0.5vw, 3px);
-  pointer-events: none;
-  user-select: none;
+    width: 100%;
+    height: 60px;
+    /* Decreased margin-top to reduce gap below song info */
+    margin: clamp(10px, 2vw, 16px) auto clamp(8px, 2vw, 12px); /* Adjusted from 16px, 3vw, 24px */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(2px, 0.5vw, 3px);
+    pointer-events: none;
+    user-select: none;
 }
 .bar {
-  width: clamp(5px, 1vw, 7px);
-  background: linear-gradient(180deg, #e66c35, #d04345, #85a752, #067dcc);
-  border-radius: 4px;
-  opacity: 0.92;
-  transition: height 0.08s;
+    width: clamp(5px, 1vw, 7px);
+    background: linear-gradient(180deg, #e66c35, #d04345, #85a752, #067dcc);
+    border-radius: 4px;
+    opacity: 0.92;
+    transition: height 0.08s;
 }
 .player-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(12px, 2vw, 14px);
-  margin: clamp(16px, 3vw, 20px) 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(12px, 2vw, 14px);
+    margin: clamp(16px, 3vw, 20px) 0;
 }
 .control-button {
-  background: linear-gradient(135deg, #6ee7b7 30%, #f472b6 100%);
-  border: none;
-  color: #fff;
-  font-size: clamp(1.3rem, 3vw, 1.5rem);
-  width: clamp(44px, 10vw, 52px);
-  height: clamp(44px, 10vw, 52px);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 6px 18px #a78bfa55;
-  transition: all 0.3s cubic-bezier(.4,2,.6,1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  position: relative;
-  z-index: 2;
+    background: linear-gradient(135deg, #6ee7b7 30%, #f472b6 100%);
+    border: none;
+    color: #fff;
+    font-size: clamp(1.3rem, 3vw, 1.5rem);
+    width: clamp(44px, 10vw, 52px);
+    height: clamp(44px, 10vw, 52px);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 18px #a78bfa55;
+    transition: all 0.3s cubic-bezier(.4,2,.6,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    position: relative;
+    z-index: 2;
 }
 .control-button:hover {
-  background: linear-gradient(135deg, #f472b6 30%, #6ee7b7 100%);
-  transform: scale(1.13) rotate(5deg);
-  box-shadow: 0 10px 32px #fbbf2440;
+    background: linear-gradient(135deg, #f472b6 30%, #6ee7b7 100%);
+    transform: scale(1.13) rotate(5deg);
+    box-shadow: 0 10px 32px #fbbf2440;
 }
 .stream-status {
-  margin-top: clamp(8px, 2vw, 10px);
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
-  color: #bbb;
+    margin-top: clamp(8px, 2vw, 10px);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: #bbb;
 }
 #offline {
-  color: #fa225b;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  margin-top: clamp(6px, 1.5vw, 8px);
-  display: none;
+    color: #fa225b;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-top: clamp(6px, 1.5vw, 8px);
+    display: none;
 }
 @media (max-width: 768px) {
-  .music-player {
-    padding: clamp(14px, 3.5vw, 20px);
-    width: clamp(280px, 88vw, 360px);
-  }
-  .song-info {
-    margin-bottom: clamp(75px, 12vw, 64px);
-  }
-  .song-info h2 {
-    font-size: clamp(1.3rem, 3.2vw, 1.5rem);
-    min-height: 30px;
-  }
-  .song-info p {
-    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-    min-height: 22px;
-    margin-bottom: 12px;
-  }
-  .visualizer-row {
-    height: 48px;
-    margin: clamp(16px, 3vw, 20px) auto clamp(8px, 2vw, 10px);
-    gap: clamp(2px, 0.5vw, 3px);
-  }
-  .bar {
-    width: clamp(4px, 0.8vw, 6px);
-  }
-  .control-button {
-    width: clamp(40px, 9vw, 48px);
-    height: clamp(40px, 9vw, 48px);
-    font-size: clamp(1.2rem, 2.8vw, 1.4rem);
-  }
-  .player-controls {
-    gap: clamp(10px, 2vw, 12px);
-    margin: clamp(14px, 2.5vw, 16px) 0;
-  }
-  .stream-status {
-    margin-top: 8px;
-    font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-  }
-  .note {
-    font-size: clamp(1.6rem, 3.5vw, 1.8rem);
-  }
-  .note1 { font-size: clamp(1.8rem, 4vw, 2rem); }
-  .note2 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
-  .note4 { font-size: clamp(1.7rem, 3.8vw, 1.9rem); }
-  .note5 { font-size: clamp(1.5rem, 3.3vw, 1.7rem); }
-}
-@media (max-width: 500px) {
-  .music-player {
-    padding: clamp(12px, 3vw, 16px);
-    width: clamp(260px, 90vw, 320px);
-  }
-  .song-info {
-    margin-bottom: clamp(100px, 10vw, 48px);
-  }
-  .song-info h2 {
-    font-size: clamp(1.2rem, 3vw, 1.4rem);
-    min-height: 28px;
-  }
-  .song-info p {
-    font-size: clamp(0.8rem, 2vw, 0.9rem);
-    min-height: 20px;
-    margin-bottom: 12px;
-  }
-  .visualizer-row {
-    height: 40px;
-    margin: clamp(12px, 2.5vw, 16px) auto clamp(6px, 1.5vw, 8px);
-    gap: clamp(1.5px, 0.4vw, 2.5px);
-  }
-  .bar {
-    width: clamp(3px, 0.7vw, 5px);
-  }
-  .control-button {
-    width: clamp(36px, 8vw, 44px);
-    height: clamp(36px, 8vw, 44px);
-    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-  }
-  .player-controls {
-    gap: clamp(8px, 1.8vw, 10px);
-    margin: clamp(12px, 2vw, 14px) 0;
-  }
-  .stream-status {
-    margin-top: 6px;
-    font-size: clamp(0.7rem, 1.7vw, 0.8rem);
-  }
-  .note {
-    font-size: clamp(1.4rem, 3vw, 1.6rem);
-  }
-  .note1 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
-  .note2 { font-size: clamp(1.4rem, 3vw, 1.6rem); }
-  .note4 { font-size: clamp(1.5rem, 3.2vw, 1.7rem); }
-  .note5 { font-size: clamp(1.3rem, 2.8vw, 1.5rem); }
-}
-
-/* Safari-only hack */
-@media not all and (min-resolution: 0.001dpcm) {
-  @supports (-webkit-appearance: none) {
-    #image-container img {
-      max-height: 300% !important; /* or any value you want */
-      height: auto !important;
-      max-width: 80%;
+    .music-player {
+        padding: clamp(14px, 3.5vw, 20px);
+        width: clamp(260px, 85vw, 340px);
     }
     .song-info {
-      margin-bottom: 10px !important; /* or any value you want */
+        /* Adjusted for smaller screens */
+        margin-bottom: clamp(30px, 8vw, 50px);
     }
-  }
+    .song-info h2 {
+        font-size: clamp(1.3rem, 3.2vw, 1.5rem);
+        min-height: 30px;
+    }
+    .song-info p {
+        font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+        min-height: 22px;
+        margin-bottom: 12px;
+    }
+    .visualizer-row {
+        height: 48px;
+        /* Adjusted for smaller screens */
+        margin: clamp(8px, 1.5vw, 12px) auto clamp(8px, 2vw, 10px);
+        gap: clamp(2px, 0.5vw, 3px);
+    }
+    .bar {
+        width: clamp(4px, 0.8vw, 6px);
+    }
+    .control-button {
+        width: clamp(40px, 9vw, 48px);
+        height: clamp(40px, 9vw, 48px);
+        font-size: clamp(1.2rem, 2.8vw, 1.4rem);
+    }
+    .player-controls {
+        gap: clamp(10px, 2vw, 12px);
+        margin: clamp(14px, 2.5vw, 16px) 0;
+    }
+    .stream-status {
+        margin-top: 8px;
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+    }
+    .note {
+        font-size: clamp(1.6rem, 3.5vw, 1.8rem);
+    }
+    .note1 { font-size: clamp(1.8rem, 4vw, 2rem); }
+    .note2 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
+    .note4 { font-size: clamp(1.7rem, 3.8vw, 1.9rem); }
+    .note5 { font-size: clamp(1.5rem, 3.3vw, 1.7rem); }
+}
+@media (max-width: 500px) {
+    .music-player {
+        padding: clamp(12px, 3vw, 16px);
+        width: clamp(240px, 88vw, 300px);
+    }
+    .song-info {
+        /* Adjusted for smaller screens */
+        margin-bottom: clamp(25px, 7vw, 40px);
+    }
+    .song-info h2 {
+        font-size: clamp(1.2rem, 3vw, 1.4rem);
+        min-height: 28px;
+    }
+    .song-info p {
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        min-height: 20px;
+        margin-bottom: 12px;
+    }
+    .visualizer-row {
+        height: 40px;
+        /* Adjusted for smaller screens */
+        margin: clamp(6px, 1vw, 10px) auto clamp(6px, 1.5vw, 8px);
+        gap: clamp(1.5px, 0.4vw, 2.5px);
+    }
+    .bar {
+        width: clamp(3px, 0.7vw, 5px);
+    }
+    .control-button {
+        width: clamp(36px, 8vw, 44px);
+        height: clamp(36px, 8vw, 44px);
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    }
+    .player-controls {
+        gap: clamp(8px, 1.8vw, 10px);
+        margin: clamp(12px, 2vw, 14px) 0;
+    }
+    .stream-status {
+        margin-top: 6px;
+        font-size: clamp(0.7rem, 1.7vw, 0.8rem);
+    }
+    .note {
+        font-size: clamp(1.4rem, 3vw, 1.6rem);
+    }
+    .note1 { font-size: clamp(1.6rem, 3.5vw, 1.8rem); }
+    .note2 { font-size: clamp(1.4rem, 3vw, 1.6rem); }
+    .note4 { font-size: clamp(1.5rem, 3.2vw, 1.7rem); }
+    .note5 { font-size: clamp(1.3rem, 2.8vw, 1.5rem); }
 }
 
+#image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 80px; /* Note: This height might be overridden by visualizer-row's fixed height */
+    overflow: hidden;
+    background: transparent;
+    /* Filters for the Safari image fallback only */
+    filter: saturate(1.15) contrast(1.1) brightness(0.95);
+}
+#image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Changed to contain to ensure full image visibility within the space */
+    display: block;
+    margin: 0 auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
